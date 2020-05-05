@@ -79,7 +79,9 @@
 <script>
 	const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili"
 	// 创建一个新的 Vue 实例
-
+	function isValidUsername(username) {
+		return username
+	}
 	new Vue({
 		// DOM 元素，挂载视图模型
 		el: '#app',
@@ -91,6 +93,10 @@
 		},
 		methods:{
 			userLogin: function () {
+				if(!isValidUsername(this.username)){
+					this.hint = "用户名格式不合规范!"
+					return
+				}
 				axios.post(root + '/userLogin',{
 					username: this.username,
 					passwd: this.passwd
@@ -105,6 +111,10 @@
 				});
 			},
 			restLogin: function () {
+				if(!isValidUsername(this.username)){
+					this.hint = "用户名格式不合规范!"
+					return
+				}
 				axios.post(root + '/restLogin',{
 					username: this.username,
 					passwd: this.passwd
