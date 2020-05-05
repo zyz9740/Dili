@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <title>菜品管理</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="container">
+                <div class="head-logo">
+                    <a href="index.html"><img src="images/logo.png" class="img-responsive" alt=""  style="height: 40px"></a>
+                </div>
+                <div class="head-nav">
+                    <ul>
+                        <li class="active"><a href="mealList.html">菜品管理</a></li>
+                        <li><a href="mealPublish.html">菜品发布</a></li>
+                    </ul>
+                </div>
+                <div class="head-cart" style="visibility:hidden">
+                    <div class="cart box_1">
+                        <a href="checkout.html">
+                            <h3> <span>$0.00</span> (<span id="simpleCart_quantity">0</span> items)</h3>
+                            <p><a>已点订单</a></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header -->
+        <!-- about -->
+        <div class="orders">
+            <div class="container">
+                <div v-for="meal in mealList" class="order-top">
+                    <li class="im-g"><a href="#"><img v-bind:src="'images/' + meal.url" class="img-responsive" alt=""></a></li>
+                    <li class="data"><h4>{{meal.name}}</h4>
+                        <p>{{meal.desc}}</p>
+                    </li>
+                    <li class="bt-nn">
+                        <a class="morebtn hvr-rectangle-in" href="orders.html">修改</a>
+                    </li>
+                    <li class="bt-nn">
+                        <a class="morebtn hvr-rectangle-in" href="orders.html">删除</a>
+                    </li>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <!-- about -->
+        <!-- footer-->
+        <div class="footer">
+            <div class="container">
+                <div class="footer-left">
+                    <p>Copyrights © 2020 软件过程小组 All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+        <!-- footer-->
+    </div>
+</body>
+<script>
+    new Vue({
+        // DOM 元素，挂载视图模型
+        el: '#app',
+        // 定义属性，并设置初始值
+        data: {
+            mealList: [
+                {url: '1p.jpg', name:'鱼香肉丝', desc: '真的好吃'},
+                {url: '1p.jpg', name:'鱼香肉丝', desc: '真的好吃'},
+                {url: '1p.jpg', name:'鱼香肉丝', desc: '真的好吃'},
+                {url: '1p.jpg', name:'鱼香肉丝', desc: '真的好吃'},
+            ]
+        },
+    });
+</script>
+</html>
+

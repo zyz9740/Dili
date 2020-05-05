@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <title>商户注册</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="container">
+                <div class="head-logo">
+                    <a href="index.html"><img src="images/logo.png" class="img-responsive" alt=""  style="height: 40px"></a>
+                </div>
+                <div class="head-nav">
+                    <ul>
+                        <li><a href=" login.html">登陆</a></li>
+                        <li><a href="userRegister.html">用户注册</a></li>
+                        <li class="active"><a href="restRegister.html">商户注册</a></li>
+                    </ul>
+                </div>
+                <div class="head-cart" style="visibility:hidden">
+                    <div class="cart box_1">
+                        <a href="checkout.html">
+                            <h3> <span>$0.00</span> (<span id="simpleCart_quantity">0</span> items)</h3>
+                            <p><a>已点订单</a></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header -->
+        <!-- register -->
+        <div class="main-1">
+            <div class="container">
+                <div class="register">
+                    <form>
+                        <div class="register-top-grid">
+                            <h3>商户信息</h3>
+                            <div class="wow fadeInLeft" data-wow-delay="0.4s">
+                                <span>商户名</span>
+                                <input type="text" v-model="restname">
+                            </div>
+                            <div class="wow fadeInRight" data-wow-delay="0.4s">
+                                <span>商户地址</span>
+                                <input type="text"  v-model="restAddr">
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="register-bottom-grid">
+                            <h3>登陆信息</h3>
+                            <div class="wow fadeInLeft" data-wow-delay="0.4s">
+                                <span>密码</span>
+                                <input type="password"  v-model="password">
+                            </div>
+                            <div class="wow fadeInRight" data-wow-delay="0.4s">
+                                <span>确认密码</span>
+                                <input type="password"  v-model="confirmPassword">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="clearfix"> </div>
+                    <div class="register-but">
+                        <form>
+                            <input type="button" value="商户注册" @click="restRegister">
+                            <span style="margin-left:20px;color:red">{{hint}}</span>
+                            <div class="clearfix"> </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- register -->
+        <!-- footer-->
+        <div class="footer">
+            <div class="container">
+                <div class="footer-left">
+                    <p>Copyrights © 2020 软件过程小组 All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+        <!-- footer-->
+    </div>
+</body>
+<script>
+    function isValidRestname(username) {
+        return username
+    }
+    const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili"
+
+    new Vue({
+        // DOM 元素，挂载视图模型
+        el: '#app',
+        // 定义属性，并设置初始值
+        data: {
+            restname: "",
+            restAddr: "",
+            password: "",
+            confirmPassword: "",
+            hint: "",
+        },
+        methods: {
+            restRegister: function () {
+                if(this.password !== this.confirmPassword) {
+                    this.hint = "两次密码输入不一致!"
+                    return
+                }
+                if(!isValidRestname(this.restname)){
+                    this.hint = "商户名格式不合规范!"
+                    return
+                }
+                axios.post(root + '/restRegister',{
+                    restname: this.restname,
+                    addr: this.restAddr,
+                    passwd: this.passwd
+                }).then(response => {
+                    if(response.data.responseStatus.isSucceed){
+                        this.hint = "登陆成功!";
+                        window.location.href = "mealList.html"
+                    }
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+            }
+        }
+    });
+</script>
+</html>

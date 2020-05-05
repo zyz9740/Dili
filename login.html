@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<title>登陆</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div class="header">
+			<div class="container">
+				<div class="head-logo">
+					<a href="index.html"><img src="images/logo.png" class="img-responsive" alt=""  style="height: 40px"></a>
+				</div>
+				<div class="head-nav">
+					<ul>
+						<li class="active"><a href=" login.html">登陆</a></li>
+						<li><a href="userRegister.html">用户注册</a></li>
+						<li><a href="restRegister.html">商户注册</a></li>
+					</ul>
+				</div>
+				<div class="head-cart" style="visibility:hidden">
+					<div class="cart box_1">
+						<a href="checkout.html">
+							<h3> <span>$0.00</span> (<span id="simpleCart_quantity">0</span> items)</h3>
+							<p><a>已点订单</a></p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- header -->
+		<!-- login -->
+		<div class="login-page">
+			<div class="container">
+				<div class="account_grid">
+					<div class="col-md-6 login-left wow fadeInLeft" data-wow-delay="0.4s">
+						<h3>新用户注册</h3>
+						<p>通过注册成为新用户，你可以体会到足不出会在线点餐的魅力。</p>
+						<a class="acount-btn" href="userRegister.html">注册</a>
+						<h3 style="margin-top: 30px">商户注册</h3>
+						<p>通过注册成为商户，你可以免费在本网站上发布自己的菜品。</p>
+						<a class="acount-btn" href="restRegister.html">商户注册</a>
+				   </div>
+				   <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
+						<h3>用户登录</h3><span style="color: red;">{{hint}}</span>
+						<form>
+							<div>
+								<span>用户名</span>
+								<input v-model="username" type="text">
+							</div>
+							<div>
+								<span>密码</span>
+								<input v-model="passwd" type="password">
+							</div>
+							<input type="button" @click="userLogin" value="登陆" >
+							<input type="button" @click="restLogin" value="商户登陆">
+						</form>
+				   </div>
+				</div>
+			</div>
+		</div>
+		<!-- login -->
+		<!-- footer-->
+		<div class="footer">
+			<div class="container">
+				<div class="footer-left">
+					<p>Copyrights © 2020 软件过程小组 All Rights Reserved</p>
+				</div>
+			</div>
+		</div>
+		<!-- footer-->
+	</div>
+<script>
+	const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili"
+	// 创建一个新的 Vue 实例
+
+	new Vue({
+		// DOM 元素，挂载视图模型
+		el: '#app',
+		// 定义属性，并设置初始值
+		data: {
+			hint:"",
+			username: "",
+			passwd: "",
+		},
+		methods:{
+			userLogin: function () {
+				axios.post(root + '/userLogin',{
+					username: this.username,
+					passwd: this.passwd
+				}).then(response => {
+					if(response.data.isSucceed){
+						this.hint = "登陆成功";
+						window.location.href = "order.html"
+					}
+				})
+				.catch(function (error) { // 请求失败处理
+					console.log(error);
+				});
+			},
+			restLogin: function () {
+				axios.post(root + '/restLogin',{
+					username: this.username,
+					passwd: this.passwd
+				}).then(response => {
+					if(response.data.isSucceed){
+						this.hint = "登陆成功";
+						window.location.href = "mealList.html"
+					}
+				}).catch(function (error) { // 请求失败处理
+					console.log(error);
+				});
+			}
+		}
+	});
+</script>
+</body>
+</html>
