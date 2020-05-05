@@ -121,7 +121,7 @@ body a{
 	display: block;
 	text-transform: uppercase;
 }
-.register-top-grid input[type="text"], .register-bottom-grid input[type="text"],.register-top-grid input[type="password"], .register-bottom-grid input[type="password"]{
+.register-top-grid input[type='text'], .register-bottom-grid input[type='text'],.register-top-grid input[type='password'], .register-bottom-grid input[type='password']{
 	border: 1px solid #5B9822;
 	outline:none;
 	width: 96%;
@@ -147,7 +147,7 @@ body a{
   border: none;
   outline: none;
 }
-.register-but input[type="button"]:hover {
+.register-but input[type='button']:hover {
 	background:#D96B66;
 }
 div.register-bottom-grid {
@@ -183,7 +183,7 @@ div.register-bottom-grid {
 	display: inline-block;
 	text-transform: uppercase;
 }
-.acount-btn:hover, .login-right input[type="button"]:hover{
+.acount-btn:hover, .login-right input[type='button']:hover{
 	background:#D96B66;
 	text-decoration:none;
 	color:#fff;
@@ -201,28 +201,28 @@ div.register-bottom-grid {
 	display: block;
 	text-transform: uppercase;
 }
-.login-right input[type="text"] {
+.login-right input[type='text'] {
 	border: 1px solid #5B9822;
 	outline:none;
 	width: 96%;
 	font-size:0.8125em;
 	padding: 1em;
 }
-.login-right input[type="password"] {
+.login-right input[type='password'] {
 	border: 1px solid #5B9822;
 	outline:none;
 	width: 96%;
 	font-size:0.8125em;
 	padding: 1em;
 }
-.register-top-grid input[type="password"], .register-bottom-grid input[type="password"] {
+.register-top-grid input[type='password'], .register-bottom-grid input[type='password'] {
   border: 1px solid #5B9822;
   outline: none;
   width: 96%;
   font-size: 1em;
   padding: 0.5em;
 }
-.login-right input[type="button"] {
+.login-right input[type='button'] {
 	background:#5fa022;
 	color: #FFF;
 	font-size: 1em;
@@ -313,7 +313,7 @@ a.morebtn {
     transition-duration: 0.3s;
 }
 .hvr-rectangle-in:before {
-    content: "";
+    content: '';
     position: absolute;
     z-index: -1;
     top: 0;
