@@ -76,11 +76,10 @@
     </div>
 </body>
 <script>
-    const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili";
-    let id = $.cookie('id');
-    function refresh() {
+    // const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili";
+    const root = "http://119.3.245.7:8080"
 
-    }
+    let id = $.cookie('id');
     new Vue({
         // DOM 元素，挂载视图模型
         el: '#app',
@@ -111,6 +110,7 @@
             deleteMeal(index){
                 let data = {
                     id: this.mealList[index].id,
+                    storeId: parseInt($.cookie('id'))
                 };
                 axios({
                     url: root + '/itemRemove/',
@@ -120,13 +120,17 @@
                     },
                     data: data
                 }).then(response => {
-                    console.log("/itemRemove\t", response.data);
-                    alert(response.data.message)
+                    if(response.data.succeed) {
+                        console.log("/itemRemove\t", response.data);
+                        alert('删除成功' + response.data.message)
+                    }else{
+                        alert('删除失败' + response.data.message)
+                    }
                 })
                 .catch(function (error) { // 请求失败处理
                     console.log(error);
-                })
-                this.refresh();
+                });
+                this.mealList.splice(index, 1)
 
             },
             modifyMeal(index){

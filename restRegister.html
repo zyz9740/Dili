@@ -99,7 +99,8 @@
     function isValidRestname(username) {
         return username
     }
-    const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili"
+    // const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili"
+    const root = "http://119.3.245.7:8080"
 
     new Vue({
         // DOM 元素，挂载视图模型
@@ -125,7 +126,7 @@
                 let data = {
                     storeName: this.restname,
                     storeAddr: this.restAddr,
-                    password: md5(this.passwd),
+                    password: md5(this.password),
                 };
                 axios({
                     url: root + '/restRegister',
@@ -136,8 +137,10 @@
                     }
                 }).then(response => {
                     if(response.data.status.succeed){
-                        this.hint = "注册成功!";
+                        alert('注册成功')
                         window.location.href = "login.html"
+                    }else{
+                        alert(response.data.message)
                     }
                 })
                 .catch(function (error) { // 请求失败处理

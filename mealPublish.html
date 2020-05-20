@@ -65,7 +65,9 @@
 </div>
 </body>
 <script>
-    const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili";
+    // const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili";
+    const root = "http://119.3.245.7:8080"
+
     function getQueryVariable(variable)
     {
         var query = window.location.search.substring(1);
@@ -88,8 +90,8 @@
         },
         mounted () {
             let id = getQueryVariable('id');
-            this.mealId = id;
             if(id) {
+                this.mealId = parseInt(id);
                 axios({
                     url: root + '/itemInfo/' + id,
                     method: 'Get',
@@ -118,9 +120,9 @@
                 if (this.mealId === -1) {
                     // new meal
                     let data = {
-                        storeId: $.cookie('id'),
+                        storeID: parseInt($.cookie('id')),
                         itemName: this.mealInfo.itemName,
-                        price: this.mealInfo.price,
+                        price: parseFloat(this.mealInfo.price),
                         image: this.mealInfo.image,
                         description: this.mealInfo.description,
                     };
@@ -133,16 +135,29 @@
                         },
                         data: data
                     }).then(response => {
-                        console.log("/itemPublish\t", response.data);
-                        alert("修改结果：" + response.data.message)
-                        window.location.href = "mealList.html";
+                        if(response.data.succeed) {
+                            console.log("/itemPublish\t", response.data);
+                            alert("菜品发布成功：" + response.data.message);
+                            window.location.href = "mealList.html";
+                        }else{
+                            console.log("/itemPublish\t", response.data);
+                            alert("菜品发布失败：" + response.data.message);
+                        }
 
                     })
-                        .catch(function (error) { // 请求失败处理
-                            console.log(error);
-                        });
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
                 } else {
-                    let data = this.mealInfo;
+                    // new meal
+                    let data = {
+                        id:             this.mealId,
+                        storeID:        parseInt($.cookie('id')),
+                        itemName:       this.mealInfo.itemName,
+                        price:          parseFloat(this.mealInfo.price),
+                        image:          this.mealInfo.image,
+                        description:    this.mealInfo.description,
+                    };
                     axios({
                         url: root + '/itemModify',
                         method: 'POST',

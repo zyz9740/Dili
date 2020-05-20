@@ -106,7 +106,8 @@
     function isValidUsername(username) {
         return username
     }
-    const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili"
+    // const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili"
+    const root = "http://119.3.245.7:8080"
 
     new Vue({
         // DOM 元素，挂载视图模型
@@ -121,39 +122,42 @@
         },
         methods: {
             userRegister: function () {
-                if(this.password !== this.confirmPassword) {
+                if (this.password !== this.confirmPassword) {
                     this.hint = "两次密码输入不一致!"
                     return
                 }
-                if(!isValidUsername(this.username)){
+                if (!isValidUsername(this.username)) {
                     this.hint = "用户名格式不合规范!"
                     return
                 }
-                if(!isValidEmail(this.email)){
+                if (!isValidEmail(this.email)) {
                     this.hint = "邮箱格式不合规范!"
                     return
                 }
                 let data = {
-                    username:   this.username,
-                    email:      this.email,
-                    password:   md5(this.passwd)
+                    username: this.username,
+                    email: this.email,
+                    password: md5(this.password)
                 };
                 axios({
                     url: root + '/userRegister',
                     data: data,
                     method: 'post',
-                    header:{
-                        'Content-Type':'application/json'
+                    header: {
+                        'Content-Type': 'application/json'
                     }
                 }).then(response => {
-                    if(response.data.isSucceed){
-                        this.hint = "注册成功!";
+                    if (response.data.succeed) {
+                        alert("注册成功!");
                         window.location.href = "login.html"
+                    }else{
+                        alert(response.data.message)
                     }
                 })
                 .catch(function (error) { // 请求失败处理
                     console.log(error);
                 });
+            }
         }
     });
 </script>

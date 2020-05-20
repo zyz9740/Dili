@@ -61,7 +61,7 @@
 						<h3>用户登录</h3><span style="color: red;">{{hint}}</span>
 						<form>
 							<div>
-								<span>用户名</span>
+								<span>邮箱</span>
 								<input v-model="username" type="text">
 							</div>
 							<div>
@@ -87,7 +87,8 @@
 		<!-- footer-->
 	</div>
 <script>
-	const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili"
+	// const root = "https://www.fastmock.site/mock/5d87f42c9230c2839711b785140cf3ec/dili"
+	const root = "http://119.3.245.7:8080"
 	// 创建一个新的 Vue 实例
 	function isValidUsername(username) {
 		return username
@@ -108,8 +109,8 @@
 					return
 				}
 				let data = {
-					username: 	this.username,
-					passwd: 	md5(this.passwd)
+					email: 	    this.username,
+					password: 	md5(this.passwd)
 				};
 				axios({
 					url: root + '/userLogin',
@@ -125,6 +126,8 @@
 						$.cookie('username', this.username);
 						$.cookie('type', 'user');
 						window.location.href = "order.html"
+					}else{
+						alert(response.data.message)
 					}
 				})
 				.catch(function (error) { // 请求失败处理
@@ -137,8 +140,8 @@
 					return
 				}
 				let data = {
-					username: 	this.username,
-					passwd: 	md5(this.passwd)
+					storeName: 	this.username,
+					password: 	md5(this.passwd)
 				};
 				axios({
 					url: root + '/restLogin',
@@ -149,11 +152,13 @@
 					}
 				}).then(response => {
 					if(response.data.id){
-						this.hint = "登陆成功!";
+						alert("登陆成功!");
 						$.cookie('id', response.data.id);
 						$.cookie('username', this.username);
 						$.cookie('type', 'rest');
 						window.location.href = "mealList.html"
+					}else{
+						alert(response.data.message)
 					}
 				})
 				.catch(function (error) { // 请求失败处理
