@@ -17,7 +17,7 @@ body a{
 .header .container {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .head-nav {
@@ -64,6 +64,28 @@ body a{
   background-color: #f2f0f1;
   box-shadow: 12px -5px 39px -12px;
 }
+
+/** header-user */
+
+.header-user {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-user img {
+    height: 40px;
+}
+
+.header-user-text {
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+
+
 .footer p {
   color: #fff;
   font-size: 1em;
@@ -338,3 +360,31 @@ a.morebtn {
     -webkit-transform: scale(0);
     transform: scale(0);
 }
+
+/*  meal info */
+.mealinfo {
+    margin: 50px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 50px 100px;
+    border-radius: 10px;
+}
+
+.mealinfo img{
+
+}
+.mealinfo .form-group {
+    width: 100%;
+}
+
+.info-input {
+
+}
+
+.info-label {
+    margin: 15px 0px 15px 5px;
+}
+

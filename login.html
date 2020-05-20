@@ -11,9 +11,13 @@
 
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 	<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+	<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
 	<title>登陆</title>
 </head>
 <body>
@@ -103,12 +107,23 @@
 					this.hint = "用户名格式不合规范!"
 					return
 				}
-				axios.post(root + '/userLogin',{
-					username: this.username,
-					passwd: this.passwd
+				let data = {
+					username: 	this.username,
+					passwd: 	md5(this.passwd)
+				};
+				axios({
+					url: root + '/userLogin',
+					data: data,
+					method: 'post',
+					header:{
+						'Content-Type':'application/json'
+					}
 				}).then(response => {
-					if(response.data.isSucceed){
-						this.hint = "登陆成功";
+					if(response.data.id){
+						this.hint = "登陆成功!";
+						$.cookie('id', response.data.id);
+						$.cookie('username', this.username);
+						$.cookie('type', 'user');
 						window.location.href = "order.html"
 					}
 				})
@@ -121,15 +136,27 @@
 					this.hint = "用户名格式不合规范!"
 					return
 				}
-				axios.post(root + '/restLogin',{
-					username: this.username,
-					passwd: this.passwd
+				let data = {
+					username: 	this.username,
+					passwd: 	md5(this.passwd)
+				};
+				axios({
+					url: root + '/restLogin',
+					method: 'post',
+					data: data,
+					header:{
+						'Content-Type':'application/json'
+					}
 				}).then(response => {
-					if(response.data.isSucceed){
-						this.hint = "登陆成功";
+					if(response.data.id){
+						this.hint = "登陆成功!";
+						$.cookie('id', response.data.id);
+						$.cookie('username', this.username);
+						$.cookie('type', 'rest');
 						window.location.href = "mealList.html"
 					}
-				}).catch(function (error) { // 请求失败处理
+				})
+				.catch(function (error) { // 请求失败处理
 					console.log(error);
 				});
 			}

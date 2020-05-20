@@ -11,10 +11,14 @@
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
     <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
     <title>用户注册</title>
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
 </head>
 <body>
     <div id="app">
@@ -129,20 +133,27 @@
                     this.hint = "邮箱格式不合规范!"
                     return
                 }
-                axios.post(root + '/userRegister',{
-                    username: this.username,
-                    email: this.email,
-                    passwd: this.passwd
+                let data = {
+                    username:   this.username,
+                    email:      this.email,
+                    password:   md5(this.passwd)
+                };
+                axios({
+                    url: root + '/userRegister',
+                    data: data,
+                    method: 'post',
+                    header:{
+                        'Content-Type':'application/json'
+                    }
                 }).then(response => {
                     if(response.data.isSucceed){
-                        this.hint = "登陆成功!";
-                        window.location.href = "order.html"
+                        this.hint = "注册成功!";
+                        window.location.href = "login.html"
                     }
                 })
                 .catch(function (error) { // 请求失败处理
                     console.log(error);
                 });
-            }
         }
     });
 </script>
